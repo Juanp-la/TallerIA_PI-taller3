@@ -1,0 +1,22 @@
+Actividad 5: Cargar imágenes desde la carpeta entregada
+========================================================
+
+Qué se pedía:
+Descargar la carpeta con las imágenes ya generadas (enlace de SharePoint del
+taller), ubicarlas en media/movie/images/ y crear el comando
+update_images_from_folder para asignar cada imagen a su película.
+
+Qué pasó:
+El enlace de SharePoint indicado en 5_movie_pictures.md no funcionó (enlace
+caído / sin acceso), por lo que no fue posible descargar las imágenes.
+
+Qué se hizo:
+- Se creó el comando movie/management/commands/update_images_from_folder.py.
+  Recorre las películas de la base de datos, busca en media/movie/images/ el
+  archivo m_NOMBRE_PELICULA.png y, si existe, actualiza el campo image.
+- Se ejecutó "python manage.py update_images_from_folder". El comando funciona
+  correctamente: encuentra las 100 películas, pero como la carpeta no tiene las
+  imágenes, muestra "Image not found" para cada una (ver captura 01).
+
+Cuando se tenga acceso a la carpeta, basta con copiar las imágenes en
+media/movie/images/ y volver a ejecutar el comando para asignarlas todas.

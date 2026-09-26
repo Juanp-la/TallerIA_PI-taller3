@@ -1,0 +1,36 @@
+Taller 3 - Entregables (Juan Pablo Lopera Arrazola)
+====================================================
+
+Las carpetas siguen el orden de los archivos del taller:
+
+4_Descripciones_peliculas
+  01 - Salida del comando update_movies_from_csv (100 películas actualizadas).
+  02 - Página de administración con la descripción actualizada de una película.
+
+5_Imagenes_peliculas
+  01 - Error de OpenAI: el modelo dall-e-2 ya no existe (fue retirado).
+  02 - Error de OpenAI: la cuenta no tiene créditos.
+  03 - Comando update_images ejecutado con Hugging Face (FLUX.1-schnell):
+       imagen generada y guardada para la primera película (con break).
+  04 - Página de películas mostrando la imagen generada para "La captura".
+
+5b_Imagenes_desde_carpeta_link_caido
+  01 - Comando update_images_from_folder funcionando sin imágenes.
+  Ver LEEME.txt de esa carpeta: el enlace de las imágenes no funcionó.
+
+6_Similitud_peliculas
+  01 - Código con las películas seleccionadas y el prompt.
+  02 - Resultados de similitud de coseno en consola.
+
+7_Embeddings_y_recomendador
+  01 - Embedding de una película seleccionada al azar (comando show_embedding).
+  02 - Página del recomendador: campo del prompt y película recomendada.
+
+Nota sobre OpenAI -> Hugging Face
+---------------------------------
+La cuenta de OpenAI no tenía créditos y el modelo dall-e-2 ya fue retirado por
+OpenAI, así que las partes que usaban la API se adaptaron a Hugging Face (gratis):
+- Imágenes: modelo black-forest-labs/FLUX.1-schnell.
+- Embeddings: modelo sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+  (multilingüe, porque las descripciones están en español; vectores de 384 valores).
+La lógica del taller se mantiene igual: embeddings + similitud de coseno.
