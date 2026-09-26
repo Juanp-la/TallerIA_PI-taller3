@@ -2,11 +2,13 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from .models import Movie
+from .embeddings_utils import get_embedding, cosine_similarity
 
 import matplotlib.pyplot as plt
 import matplotlib
 import io
 import urllib, base64
+import numpy as np
 
 def home(request):
     #return HttpResponse('<h1>Welcome to Home Page</h1>')
@@ -123,3 +125,29 @@ def generate_bar_chart(data, xlabel, ylabel):
     buffer.close()
     graphic = base64.b64encode(image_png).decode('utf-8')
     return graphic
+
+
+def recommend(request):
+    # 📝 Prompt escrito por el usuario en el formulario
+    prompt = request.GET.get('prompt')
+    best_movie = None
+    max_similarity = None
+
+    if prompt:
+        # Embedding del prompt
+        prompt_emb = get_embedding(prompt)
+        max_similarity = -1
+
+        # Recorre las películas y compara con similitud de coseno
+        for movie in Movie.objects.all():
+            movie_emb = np.frombuffer(movie.emb, dtype=np.float32)
+            similarity = cosine_similarity(prompt_emb, movie_emb)
+            if similarity > max_similarity:
+                max_similarity = similarity
+                best_movie = movie
+
+    return render(request, 'recommend.html', {
+        'prompt': prompt,
+        'best_movie': best_movie,
+        'similarity': max_similarity,
+    })

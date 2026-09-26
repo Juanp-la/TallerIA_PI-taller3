@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>🎬 Recomendador de películas</h2>
+  <form method="GET" class="mb-4">
+    <input type="text" name="prompt" class="form-control mb-2"
+           placeholder="Ej: película de fantasía con caballeros"
+           value="{{ prompt|default:'' }}">
+    <button type="submit" class="btn btn-primary">Recomendar</button>
+  </form>
+
+  {% if best_movie %}
+  <div class="card" style="max-width: 400px;">
+    <img src="{{ best_movie.image.url }}" class="card-img-top">
+    <div class="card-body">
+      <h5 class="card-title">{{ best_movie.title }}</h5>
+      <p class="card-text">{{ best_movie.description }}</p>
+      <p><strong>Similitud:</strong> {{ similarity|floatformat:4 }}</p>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock content %}
